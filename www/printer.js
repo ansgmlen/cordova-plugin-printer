@@ -54,10 +54,10 @@ exports.getDefaults = function () {
  *
  * @return {Boolean}
  */
-exports.check = function (callback, scope) {
+exports.check = function (callback, scope, _width, _height, _customSize) {
     var fn = this._createCallbackFn(callback);
 
-    exec(fn, null, 'Printer', 'check', []);
+    exec(fn, null, 'Printer', 'check', [_width, _height, _customSize]);
 };
 
 /**
