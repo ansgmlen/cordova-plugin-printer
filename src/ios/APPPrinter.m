@@ -36,8 +36,8 @@
 #pragma mark Interface
 
 //detect ipad or iphone
-#define IDIOM    UI_USER_INTERFACE_IDIOM()
-#define IPAD     UIUserInterfaceIdiomPad
+//#define IDIOM    UI_USER_INTERFACE_IDIOM()
+//#define IPAD     UIUserInterfaceIdiomPad
 
 int width = 400;
 int height = 250;
