@@ -35,6 +35,14 @@
 #pragma mark -
 #pragma mark Interface
 
+//detect ipad or iphone
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
+
+int width = 400;
+int height = 250;
+BOOL useCustomSize = false;
+
 /*
  * Checks if the printing service is available.
  *
@@ -46,6 +54,13 @@
     [self.commandDelegate runInBackground:^{
         CDVPluginResult* pluginResult;
         BOOL isAvailable   = [self isPrintingAvailable];
+
+        //assign maximum width and height
+        width = [[command.arguments objectAtIndex:0] integerValue];
+        height = [[command.arguments objectAtIndex:1] integerValue];
+        useCustomSize = [[command.arguments objectAtIndex:2] boolValue];
+
+
         NSArray *multipart = @[[NSNumber numberWithBool:isAvailable],
                                [NSNumber numberWithInt:-1]];
 
@@ -338,6 +353,11 @@
     UIWebView* page                 = [[UIWebView alloc] init];
     UIPrintPageRenderer* renderer   = [[UIPrintPageRenderer alloc] init];
     UIViewPrintFormatter* formatter = [page viewPrintFormatter];
+
+    if(useCustomSize){
+      formatter.maximumContentWidth = width;
+      formatter.maximumContentHeight = height;
+    }
 
     [renderer addPrintFormatter:formatter startingAtPageAtIndex:0];
 
